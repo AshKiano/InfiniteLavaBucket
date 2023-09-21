@@ -1,0 +1,10 @@
+name: InfiniteLavaBucket
+version: '${project.version}'
+main: com.ashkiano.infinitelavabucket.InfiniteLavaBucket
+api-version: '1.16'
+author: AshKiano
+description: Plugin providing an infinite lava bucket.
+commands:
+  infinitelava:
+    description: Gives the player an infinite lava bucket.
+    usage: /<command>
