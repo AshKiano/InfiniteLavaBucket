@@ -24,7 +24,7 @@ public class InfiniteLavaBucket extends JavaPlugin implements Listener {
         Bukkit.getServer().getPluginManager().registerEvents(this, this);
 
         Metrics metrics = new Metrics(this, 19490);
-        this.getLogger().info("Thank you for using the InfiniteLavaBucket plugin! If you enjoy using this plugin, please consider making a donation to support the development. You can donate at: https://support.ashkiano.com");
+        this.getLogger().info("Thank you for using the InfiniteLavaBucket plugin! If you enjoy using this plugin, please consider making a donation to support the development. You can donate at: https://donate.ashkiano.com");
     }
 
     public class BucketCommand implements CommandExecutor {
