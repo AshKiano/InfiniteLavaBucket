@@ -23,6 +23,12 @@ public class InfiniteLavaBucket extends JavaPlugin implements Listener {
         this.getCommand("infinitelava").setExecutor(new BucketCommand());
         Bukkit.getServer().getPluginManager().registerEvents(this, this);
 
+        this.saveDefaultConfig();
+        if (!getConfig().isSet("permission")) {
+            getConfig().set("permission", "infinitelava.use");
+            saveConfig();
+        }
+
         Metrics metrics = new Metrics(this, 19490);
         this.getLogger().info("Thank you for using the InfiniteLavaBucket plugin! If you enjoy using this plugin, please consider making a donation to support the development. You can donate at: https://donate.ashkiano.com");
     }
@@ -32,6 +38,13 @@ public class InfiniteLavaBucket extends JavaPlugin implements Listener {
         public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
+
+                String permission = InfiniteLavaBucket.this.getConfig().getString("permission");
+
+                if (!player.hasPermission(permission)) {
+                    player.sendMessage("You do not have permission to use this command.");
+                    return true;
+                }
 
                 ItemStack bucket = new ItemStack(Material.LAVA_BUCKET);
                 ItemMeta meta = bucket.getItemMeta();
