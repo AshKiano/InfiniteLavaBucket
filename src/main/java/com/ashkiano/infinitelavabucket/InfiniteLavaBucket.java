@@ -6,12 +6,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +90,18 @@ public class InfiniteLavaBucket extends JavaPlugin implements Listener {
 
                     player.getInventory().setItemInMainHand(infiniteBucket);
                 }, 1L);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerDropItem(PlayerDropItemEvent event) {
+        ItemStack droppedItem = event.getItemDrop().getItemStack();
+        if (droppedItem.getType() == Material.LAVA_BUCKET && droppedItem.hasItemMeta() && droppedItem.getItemMeta().hasLore()) {
+            List<String> lore = droppedItem.getItemMeta().getLore();
+            if (lore != null && lore.contains("Infinite Lava")) {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage("You cannot drop the infinite lava bucket!");
             }
         }
     }
